@@ -5,8 +5,10 @@ from apps.recomendaciones.models import Alimento, Recomendacion
 from .models import Consulta
 from .inferencia import evaluar_reglas, calcular_imc
 from .groq_ia import generar_plan_alimentario
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def valorar_paciente(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
 
@@ -57,7 +59,7 @@ def valorar_paciente(request, paciente_id):
 
     return render(request, 'valoracion/valorar.html', {'paciente': paciente})
 
-
+@login_required
 def ver_recomendacion(request, recomendacion_id):
     recomendacion = get_object_or_404(Recomendacion, id=recomendacion_id)
     return render(request, 'valoracion/recomendacion.html', {'recomendacion': recomendacion})

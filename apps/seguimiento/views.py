@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from apps.pacientes.models import Paciente
 from .models import Seguimiento
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def seguimiento_paciente(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
     seguimientos = Seguimiento.objects.filter(paciente=paciente).order_by('fecha')

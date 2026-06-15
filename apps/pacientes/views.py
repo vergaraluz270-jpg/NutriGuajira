@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente, EPS, RepresentanteLegal, Alergia
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def lista_pacientes(request):
     pacientes = Paciente.objects.all()
     return render(request, 'pacientes/lista.html', {'pacientes': pacientes})
 
-
+@login_required
 def registrar_paciente(request):
     if request.method == 'POST':
         rep = RepresentanteLegal.objects.create(
@@ -34,7 +35,7 @@ def registrar_paciente(request):
     eps_list = EPS.objects.all()
     return render(request, 'pacientes/registro.html', {'eps_list': eps_list})
 
-
+@login_required
 def detalle_paciente(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
     return render(request, 'pacientes/detalle.html', {'paciente': paciente})

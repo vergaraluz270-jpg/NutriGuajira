@@ -2,8 +2,9 @@ from django.shortcuts import render
 from apps.pacientes.models import Paciente
 from apps.valoracion.models import Consulta
 from apps.recomendaciones.models import Recomendacion
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def dashboard(request):
     total_pacientes = Paciente.objects.count()
     total_consultas = Consulta.objects.count()
